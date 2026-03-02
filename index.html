@@ -2,24 +2,27 @@
 <html>
 <head>
 <title>Clock</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <style>
-  body { background-color: #000000; color: #FF0000; margin: 0; padding-top: 20%; font-family: Helvetica, sans-serif; text-align: center; overflow: hidden; }
-  #time { font-size: 80px; font-weight: bold; display: block; }
-  #date { font-size: 24px; color: #FFA500; margin-top: 10px; display: block; }
+  body { background-color: #000; color: #F00; font-family: Helvetica, Arial, sans-serif; text-align: center; margin: 0; padding-top: 15%; overflow: hidden; }
+  #time { font-size: 90px; font-weight: bold; line-height: 1.0; }
+  #date { font-size: 38px; color: #FF8C00; margin-top: -5px; font-weight: bold; }
 </style>
 </head>
 <body onload="u()">
-<div id="time">00:00</div>
-<div id="date">--- -- ---</div>
-<script type="text/javascript">
-function u(){
-  var d=new Date(), h=d.getHours(), m=d.getMinutes(), n=d.getDate(), mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], dy=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  if(h<10) h="0"+h; if(m<10) m="0"+m;
-  document.getElementById('time').innerHTML = h+":"+m;
-  document.getElementById('date').innerHTML = dy[d.getDay()]+" "+n+" "+mo[d.getMonth()];
-  setTimeout(u, 10000);
-}
-</script>
+  <div id="time">00:00</div>
+  <div id="date">--- -- ---</div>
+
+  <script type="text/javascript">
+    function u(){
+      var d=new Date(), h=d.getHours(), m=d.getMinutes(), n=d.getDate(), 
+          mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], 
+          dy=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      if(h<10) h="0"+h; if(m<10) m="0"+m;
+      document.getElementById('time').innerHTML = h+":"+m;
+      document.getElementById('date').innerHTML = dy[d.getDay()]+" "+n+" "+mo[d.getMonth()];
+      setTimeout(u, 10000);
+    }
+  </script>
 </body>
 </html>
