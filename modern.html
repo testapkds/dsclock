@@ -2,38 +2,76 @@
 <html>
 <head>
     <title>Overlap Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Pacifico&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
-        body { background: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; font-family: 'Varela Round', sans-serif; }
-        .clock-container { position: relative; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        body { background: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; overflow: hidden; }
+        .clock-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
 
         #time {
-            font-size: 45vw; /* Larger for landscape */
+            /* Arial Rounded MT Bold is the exact font from your screenshot */
+            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif; 
+            font-size: 55vh; /* Responsive to height to prevent landscape zoom-out */
             color: #ff4d6d;
             z-index: 1;
-            /* Deep Purple Outline */
+            /* Deep Purple Outline (#3a1a5e) */
             text-shadow: 
-                -4px -4px 0 #3a1a5e,  4px -4px 0 #3a1a5e,
-                -4px  4px 0 #3a1a5e,  4px  4px 0 #3a1a5e,
-                10px 10px 20px rgba(0,0,0,0.8);
+                -5px -5px 0 #3a1a5e,  5px -5px 0 #3a1a5e,
+                -5px  5px 0 #3a1a5e,  5px  5px 0 #3a1a5e;
+            line-height: 1;
         }
 
         .date-text {
             position: absolute;
-            font-family: 'Pacifico', cursive;
             color: #fff982;
-            z-index: 2; /* Forces overlap on top of clock */
-            text-shadow: 3px 3px 0px #5c4d00;
+            z-index: 2; /* Overlap on top */
+            text-shadow: 4px 4px 0px #5c4d00;
             white-space: nowrap;
+            text-align: center;
         }
 
-        #date-top { top: 12%; font-size: 10vw; transform: rotate(-2deg); }
-        #date-bottom { bottom: 10%; font-size: 18vw; transform: rotate(-1deg); }
+        #date-top { 
+            top: 10%; 
+            font-family: "Waltograph", "Waltograph UI", cursive; 
+            font-size: 12vh; 
+        }
+        
+        #date-bottom { 
+            bottom: 5%; 
+            font-family: "Segoe UI", Segoe, Tahoma, sans-serif; 
+            font-size: 18vh; 
+            font-weight: bold;
+        }
+        
+        /* Forces it to stay large even in landscape */
+        @media (orientation: landscape) {
+            #time { font-size: 70vh; }
+            #date-top { font-size: 15vh; top: 5%; }
+            #date-bottom { font-size: 22vh; bottom: 2%; }
+        }
     </style>
 </head>
 <body onload="u()">
     <div class="clock-container">
+        <div id="date-top">MAR 3, 2026</div>
+        <div id="time">0:00</div>
+        <div id="date-bottom">Tuesday</div>
+    </div>
+
+    <script>
+        function u() {
+            var d=new Date(), h=d.getHours(), m=String(d.getMinutes()).padStart(2,'0'),
+                mo=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
+                dy=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            
+            // h % 12 || 12 for 12h format
+            document.getElementById('time').innerHTML = (h % 12 || 12) + ":" + m;
+            document.getElementById('date-top').innerHTML = mo[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+            document.getElementById('date-bottom').innerHTML = dy[d.getDay()];
+            setTimeout(u, 1000);
+        }
+    </script>
+</body>
+</html>
         <div id="date-top">MAR 3, 2026</div>
         <div id="time">1:34</div>
         <div id="date-bottom">Tuesday</div>
