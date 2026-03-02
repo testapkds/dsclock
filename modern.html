@@ -2,18 +2,36 @@
 <html>
 <head>
     <title>Overlap Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Pacifico&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
-        body { background: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; overflow: hidden; }
-        .clock-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        body { 
+            background: #000; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            width: 100vw; 
+            overflow: hidden; 
+            color: white;
+        }
+        .clock-container { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
 
         #time {
-            /* Arial Rounded MT Bold is the exact font from your screenshot */
-            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif; 
-            font-size: 55vh; /* Responsive to height to prevent landscape zoom-out */
+            /* Using specific requested fonts with fallbacks */
+            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", "Varela Round", sans-serif; 
+            font-size: 50vh; 
             color: #ff4d6d;
             z-index: 1;
-            /* Deep Purple Outline (#3a1a5e) */
+            /* Dark Purple/Blue Outline to match screenshot */
             text-shadow: 
                 -5px -5px 0 #3a1a5e,  5px -5px 0 #3a1a5e,
                 -5px  5px 0 #3a1a5e,  5px  5px 0 #3a1a5e;
@@ -23,17 +41,57 @@
         .date-text {
             position: absolute;
             color: #fff982;
-            z-index: 2; /* Overlap on top */
+            z-index: 2; /* Forces overlap on top of clock */
             text-shadow: 4px 4px 0px #5c4d00;
             white-space: nowrap;
             text-align: center;
         }
 
         #date-top { 
-            top: 10%; 
-            font-family: "Waltograph", "Waltograph UI", cursive; 
-            font-size: 12vh; 
+            top: 5%; 
+            /* Waltograph for date */
+            font-family: "Waltograph", "Waltograph UI", "Pacifico", cursive; 
+            font-size: 10vh; 
         }
+        
+        #date-bottom { 
+            bottom: 5%; 
+            /* Segoe for day */
+            font-family: "Segoe UI", Segoe, Tahoma, sans-serif; 
+            font-size: 15vh; 
+            font-weight: bold;
+        }
+        
+        /* Landscape adjustments to prevent zoom-out */
+        @media (orientation: landscape) {
+            #time { font-size: 75vh; }
+            #date-top { font-size: 12vh; top: 2%; }
+            #date-bottom { font-size: 18vh; bottom: 0%; }
+        }
+    </style>
+</head>
+<body onload="u()">
+    <div class="clock-container">
+        <div id="date-top" class="date-text">MAR 3, 2026</div>
+        <div id="time">0:00</div>
+        <div id="date-bottom" class="date-text">Tuesday</div>
+    </div>
+
+    <script>
+        function u() {
+            var d=new Date(), h=d.getHours(), m=String(d.getMinutes()).padStart(2,'0'),
+                mo=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
+                dy=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            
+            // 12h format
+            document.getElementById('time').innerHTML = (h % 12 || 12) + ":" + m;
+            document.getElementById('date-top').innerHTML = mo[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+            document.getElementById('date-bottom').innerHTML = dy[d.getDay()];
+            setTimeout(u, 1000);
+        }
+    </script>
+</body>
+</html>
         
         #date-bottom { 
             bottom: 5%; 
