@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clock</title>
 
-<!-- Web Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=Nunito:wght@800&display=swap" rel="stylesheet">
 
 <style>
 :root{
     --red:#ff4a6e;
-    --yellow:#ffcc66;
+    --yellow:#f4c267;
     --outline:#000;
 }
 
@@ -23,65 +22,64 @@
 
 body{
     background:#000;
-    height:100vh;
     width:100vw;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    height:100vh;
     overflow:hidden;
+    font-smooth:always;
+    -webkit-font-smoothing:antialiased;
 }
 
-.wrapper{
-    width:95vmin;
-    height:95vmin;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+.container{
+    position:relative;
+    width:100vw;
+    height:100vh;
 }
 
+/* DATE (top floating) */
 .date{
-    font-family:'Nunito', 'Segoe UI', sans-serif;
-    font-weight:900;
-    font-size:10vmin;
+    position:absolute;
+    top:4vh;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'Segoe UI','Inter',sans-serif;
+    font-weight:700;
+    font-size:5vh;
     color:var(--yellow);
-    -webkit-text-stroke:0.6vmin var(--outline);
-    margin-bottom:2vmin;
+    -webkit-text-stroke:0.35vh var(--outline);
 }
 
+/* TIME (dominant center) */
 .time{
-    font-family:'Arial Rounded MT Bold', 'Quicksand', sans-serif;
-    font-weight:700;
-    font-size:38vmin;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-family:'Arial Rounded MT Bold','Nunito',sans-serif;
+    font-weight:800;
+    font-size:28vw; /* fills landscape width */
     line-height:1;
     color:var(--red);
-    -webkit-text-stroke:1.2vmin var(--outline);
+    -webkit-text-stroke:1.1vw var(--outline);
 }
 
+/* DAY (bottom floating) */
 .day{
-    font-family:'Nunito', 'Segoe UI', sans-serif;
-    font-weight:900;
-    font-size:12vmin;
+    position:absolute;
+    bottom:8vh;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'Segoe UI','Inter',sans-serif;
+    font-weight:700;
+    font-size:7vh;
     color:var(--yellow);
-    -webkit-text-stroke:0.6vmin var(--outline);
-    margin-top:2vmin;
+    -webkit-text-stroke:0.4vh var(--outline);
 }
 
-/* LANDSCAPE MAXIMIZE */
-@media (orientation: landscape){
-    .wrapper{
-        width:100vw;
-        height:100vh;
-    }
+/* Portrait tuning */
+@media (orientation: portrait){
     .time{
-        font-size:30vh;
-    }
-    .date{
-        font-size:7vh;
-    }
-    .day{
-        font-size:9vh;
+        font-size:32vw;
+        -webkit-text-stroke:1.6vw var(--outline);
     }
 }
 </style>
@@ -89,7 +87,7 @@ body{
 
 <body>
 
-<div class="wrapper">
+<div class="container">
     <div class="date" id="date"></div>
     <div class="time" id="time"></div>
     <div class="day" id="day"></div>
@@ -99,23 +97,23 @@ body{
 function updateClock(){
     const now = new Date();
 
-    const optionsDate = { month: 'short', day: 'numeric', year: 'numeric' };
-    const optionsDay = { weekday: 'long' };
+    const dateOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+    const dayOptions = { weekday: 'long' };
 
-    let dateStr = now.toLocaleDateString('en-US', optionsDate).toUpperCase();
-    dateStr = dateStr.replace(',', ','); // keep format like MAR 3, 2026
+    document.getElementById("date").textContent =
+        now.toLocaleDateString('en-US', dateOptions);
 
-    document.getElementById("date").textContent = dateStr;
-    document.getElementById("day").textContent = now.toLocaleDateString('en-US', optionsDay);
+    document.getElementById("day").textContent =
+        now.toLocaleDateString('en-US', dayOptions);
 
-    let hours = now.getHours().toString().padStart(2,'0');
-    let minutes = now.getMinutes().toString().padStart(2,'0');
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
 
-    document.getElementById("time").textContent = `${hours}:${minutes}`;
+    document.getElementById("time").textContent = `${h}:${m}`;
 }
 
 updateClock();
-setInterval(updateClock, 1000);
+setInterval(updateClock,1000);
 </script>
 
 </body>
