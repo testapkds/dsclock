@@ -1,103 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Overlap Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Passion+One&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <style>
-        body { 
-            background: #000; 
-            margin: 0; 
-            height: 100vh; 
-            width: 100vw; 
-            overflow: hidden; 
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clock</title>
 
-        .clock-container { 
-            position: relative; 
-            width: 100vw; 
-            height: 100vh; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            flex-direction: column;
-        }
+<!-- Web Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 
-        #time {
-            /* Passion One for maximum size/boldness */
-            font-family: 'Passion One', cursive; 
-            /* Huge size, relies on vh to maximize space */
-            font-size: 70vh; 
-            color: #ff4d6d;
-            z-index: 1; /* Bottom Layer */
-            /* Flat Black Outline */
-            text-shadow: 
-                -4px -4px 0 #000, 4px -4px 0 #000, 
-                -4px  4px 0 #000, 4px  4px 0 #000;
-            line-height: 0.8; /* Tight vertical spacing */
-            letter-spacing: -10px; /* Reduces excessive gaps */
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+<style>
+:root{
+    --red:#ff4a6e;
+    --yellow:#ffcc66;
+    --outline:#000;
+}
 
-        .date-text {
-            position: absolute;
-            color: #fff982;
-            z-index: 2; /* Top Layer */
-            /* Flat Black Outline */
-            text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000, 
-                -3px  3px 0 #000, 3px  3px 0 #000;
-            white-space: nowrap;
-            text-align: center;
-            font-family: 'Pacifico', cursive; /* Handwritten for both */
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        /* Portrait Sizes */
-        #date-top { 
-            top: 10vh; 
-            font-size: 8vh; 
-        }
-        
-        #date-bottom { 
-            bottom: 10vh; 
-            font-size: 15vh; 
-        }
+body{
+    background:#000;
+    height:100vh;
+    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
 
-        /* Landscape adjustments for maximum size */
-        @media (orientation: landscape) {
-            #time { font-size: 85vh; letter-spacing: -15px; } 
-            #date-top { top: 2vh; font-size: 10vh; } 
-            #date-bottom { bottom: 2vh; font-size: 20vh; }
-        }
-    </style>
+.wrapper{
+    width:95vmin;
+    height:95vmin;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.date{
+    font-family:'Nunito', 'Segoe UI', sans-serif;
+    font-weight:900;
+    font-size:10vmin;
+    color:var(--yellow);
+    -webkit-text-stroke:0.6vmin var(--outline);
+    margin-bottom:2vmin;
+}
+
+.time{
+    font-family:'Arial Rounded MT Bold', 'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:38vmin;
+    line-height:1;
+    color:var(--red);
+    -webkit-text-stroke:1.2vmin var(--outline);
+}
+
+.day{
+    font-family:'Nunito', 'Segoe UI', sans-serif;
+    font-weight:900;
+    font-size:12vmin;
+    color:var(--yellow);
+    -webkit-text-stroke:0.6vmin var(--outline);
+    margin-top:2vmin;
+}
+
+/* LANDSCAPE MAXIMIZE */
+@media (orientation: landscape){
+    .wrapper{
+        width:100vw;
+        height:100vh;
+    }
+    .time{
+        font-size:30vh;
+    }
+    .date{
+        font-size:7vh;
+    }
+    .day{
+        font-size:9vh;
+    }
+}
+</style>
 </head>
-<body onload="u()">
-    <div class="clock-container">
-        <div id="date-top" class="date-text">MAR 3, 2026</div>
-        <div id="time">0:00</div>
-        <div id="date-bottom" class="date-text">Tuesday</div>
-    </div>
 
-    <script>
-        function u() {
-            var d=new Date(), h=d.getHours(), m=String(d.getMinutes()).padStart(2,'0'),
-                mo=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
-                dy=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-            
-            // 12h format
-            document.getElementById('time').innerHTML = (h % 12 || 12) + ":" + m;
-            document.getElementById('date-top').innerHTML = mo[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
-            document.getElementById('date-bottom').innerHTML = dy[d.getDay()];
-            setTimeout(u, 1000);
-        }
-    </script>
+<body>
+
+<div class="wrapper">
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    <div class="day" id="day"></div>
+</div>
+
+<script>
+function updateClock(){
+    const now = new Date();
+
+    const optionsDate = { month: 'short', day: 'numeric', year: 'numeric' };
+    const optionsDay = { weekday: 'long' };
+
+    let dateStr = now.toLocaleDateString('en-US', optionsDate).toUpperCase();
+    dateStr = dateStr.replace(',', ','); // keep format like MAR 3, 2026
+
+    document.getElementById("date").textContent = dateStr;
+    document.getElementById("day").textContent = now.toLocaleDateString('en-US', optionsDay);
+
+    let hours = now.getHours().toString().padStart(2,'0');
+    let minutes = now.getMinutes().toString().padStart(2,'0');
+
+    document.getElementById("time").textContent = `${hours}:${minutes}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
 </body>
 </html>
