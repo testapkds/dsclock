@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Overlap Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body { 
@@ -28,14 +28,16 @@
         }
 
         #time {
+            /* Varela Round for rounded look */
             font-family: 'Varela Round', sans-serif; 
-            font-size: 35vw; /* Scales with screen width */
+            /* Base size for portrait */
+            font-size: 40vw;
             color: #ff4d6d;
             z-index: 1; /* Bottom Layer */
-            /* Outline effect */
+            /* Flat Black Outline */
             text-shadow: 
-                -4px -4px 0 #3a1a5e,  4px -4px 0 #3a1a5e,
-                -4px  4px 0 #3a1a5e,  4px  4px 0 #3a1a5e;
+                -3px -3px 0 #000, 3px -3px 0 #000, 
+                -3px  3px 0 #000, 3px  3px 0 #000;
             line-height: 1;
             margin: 0;
             position: absolute;
@@ -48,24 +50,32 @@
             position: absolute;
             color: #fff982;
             z-index: 2; /* Top Layer */
-            text-shadow: 3px 3px 0px #5c4d00;
+            /* Flat Black Outline */
+            text-shadow: 
+                -2px -2px 0 #000, 2px -2px 0 #000, 
+                -2px  2px 0 #000, 2px  2px 0 #000;
             white-space: nowrap;
             text-align: center;
-            font-family: "Segoe UI", Segoe, Tahoma, sans-serif;
-            font-weight: bold;
+            font-family: 'Pacifico', cursive; /* Handwritten for both */
         }
 
-        /* Date positioned at top */
+        /* Portrait Sizes */
         #date-top { 
-            top: 15vh; /* Fixed offset from top */
-            font-size: 8vh; /* Scales with height */
+            top: 15vh; 
+            font-size: 8vh; 
         }
         
-        /* Day positioned at bottom */
         #date-bottom { 
-            bottom: 15vh; /* Fixed offset from bottom */
-            font-size: 15vh; /* Scales with height */
+            bottom: 15vh; 
+            font-size: 12vh; 
             letter-spacing: -2px;
+        }
+
+        /* Landscape adjustments for better overlap */
+        @media (orientation: landscape) {
+            #time { font-size: 55vh; } /* Scale by height for width */
+            #date-top { top: 5vh; font-size: 12vh; } 
+            #date-bottom { bottom: 5vh; font-size: 18vh; }
         }
     </style>
 </head>
