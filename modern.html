@@ -2,19 +2,19 @@
 <html>
 <head>
     <title>Overlap Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body { 
             background: #000; 
             margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
             height: 100vh; 
             width: 100vw; 
             overflow: hidden; 
             color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .clock-container { 
@@ -28,44 +28,43 @@
         }
 
         #time {
-            /* Varela Round is very close to Arial Rounded */
             font-family: 'Varela Round', sans-serif; 
-            font-size: 35vw; 
+            font-size: 35vw; /* Scales with screen width */
             color: #ff4d6d;
-            z-index: 1; /* Clock is bottom layer */
-            /* Deep Purple Outline */
+            z-index: 1; /* Bottom Layer */
+            /* Outline effect */
             text-shadow: 
                 -4px -4px 0 #3a1a5e,  4px -4px 0 #3a1a5e,
-                -4px  4px 0 #3a1a5e,  4px  4px 0 #3a1a5e,
-                8px 8px 10px rgba(0,0,0,0.5);
+                -4px  4px 0 #3a1a5e,  4px  4px 0 #3a1a5e;
             line-height: 1;
             margin: 0;
-            position: absolute; /* Precise positioning */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .date-text {
             position: absolute;
             color: #fff982;
-            z-index: 2; /* Text is top layer */
+            z-index: 2; /* Top Layer */
             text-shadow: 3px 3px 0px #5c4d00;
             white-space: nowrap;
             text-align: center;
+            font-family: "Segoe UI", Segoe, Tahoma, sans-serif;
+            font-weight: bold;
         }
 
-        /* Top: Waltograph approximation */
+        /* Date positioned at top */
         #date-top { 
-            top: 15%; 
-            font-family: 'Pacifico', cursive; 
-            font-size: 8vw; 
-            transform: rotate(-2deg);
+            top: 15vh; /* Fixed offset from top */
+            font-size: 8vh; /* Scales with height */
         }
         
-        /* Bottom: Segoe approximation */
+        /* Day positioned at bottom */
         #date-bottom { 
-            bottom: 15%; 
-            font-family: 'Varela Round', sans-serif; 
-            font-size: 15vw; 
-            font-weight: bold;
+            bottom: 15vh; /* Fixed offset from bottom */
+            font-size: 15vh; /* Scales with height */
             letter-spacing: -2px;
         }
     </style>
