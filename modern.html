@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Overlap Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body { 
@@ -15,10 +15,8 @@
             width: 100vw; 
             overflow: hidden; 
             color: white;
-            font-family: sans-serif;
         }
 
-        /* Container ensures everything stays centered and aligned */
         .clock-container { 
             position: relative; 
             width: 100vw; 
@@ -30,41 +28,42 @@
         }
 
         #time {
-            /* Arial Rounded fallback if custom font fails */
-            font-family: "Arial Rounded MT Bold", "Varela Round", sans-serif; 
-            font-size: 40vw; /* Scales with screen width */
+            /* Varela Round is very close to Arial Rounded */
+            font-family: 'Varela Round', sans-serif; 
+            font-size: 35vw; 
             color: #ff4d6d;
             z-index: 1; /* Clock is bottom layer */
-            /* Dark Purple Outline */
+            /* Deep Purple Outline */
             text-shadow: 
                 -4px -4px 0 #3a1a5e,  4px -4px 0 #3a1a5e,
                 -4px  4px 0 #3a1a5e,  4px  4px 0 #3a1a5e,
-                10px 10px 15px rgba(0,0,0,0.5);
+                8px 8px 10px rgba(0,0,0,0.5);
             line-height: 1;
             margin: 0;
-            position: absolute; /* Allows overlaps */
+            position: absolute; /* Precise positioning */
         }
 
         .date-text {
             position: absolute;
             color: #fff982;
-            z-index: 2; /* Date is top layer */
+            z-index: 2; /* Text is top layer */
             text-shadow: 3px 3px 0px #5c4d00;
             white-space: nowrap;
             text-align: center;
         }
 
-        /* Precise Positioning for Overlaps */
+        /* Top: Waltograph approximation */
         #date-top { 
-            top: 25%; 
-            font-family: "Pacifico", cursive; /* Handwritten fallback */
+            top: 15%; 
+            font-family: 'Pacifico', cursive; 
             font-size: 8vw; 
             transform: rotate(-2deg);
         }
         
+        /* Bottom: Segoe approximation */
         #date-bottom { 
-            bottom: 25%; 
-            font-family: sans-serif; /* Bold Sans fallback */
+            bottom: 15%; 
+            font-family: 'Varela Round', sans-serif; 
             font-size: 15vw; 
             font-weight: bold;
             letter-spacing: -2px;
@@ -84,11 +83,9 @@
                 mo=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],
                 dy=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
             
-            // Time formatting
+            // 12h format
             document.getElementById('time').innerHTML = (h % 12 || 12) + ":" + m;
-            // Date formatting
-            document.getElementById('date-top').innerHTML = mo[d.getMonth()] + " " + d.getDate();
-            // Day formatting
+            document.getElementById('date-top').innerHTML = mo[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
             document.getElementById('date-bottom').innerHTML = dy[d.getDay()];
             setTimeout(u, 1000);
         }
