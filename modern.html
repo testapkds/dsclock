@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Overlap Clock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Passion+One&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body { 
@@ -28,17 +28,18 @@
         }
 
         #time {
-            /* Varela Round for rounded look */
-            font-family: 'Varela Round', sans-serif; 
-            /* Base size for portrait */
-            font-size: 40vw;
+            /* Passion One for maximum size/boldness */
+            font-family: 'Passion One', cursive; 
+            /* Huge size, relies on vh to maximize space */
+            font-size: 70vh; 
             color: #ff4d6d;
             z-index: 1; /* Bottom Layer */
             /* Flat Black Outline */
             text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000, 
-                -3px  3px 0 #000, 3px  3px 0 #000;
-            line-height: 1;
+                -4px -4px 0 #000, 4px -4px 0 #000, 
+                -4px  4px 0 #000, 4px  4px 0 #000;
+            line-height: 0.8; /* Tight vertical spacing */
+            letter-spacing: -10px; /* Reduces excessive gaps */
             margin: 0;
             position: absolute;
             top: 50%;
@@ -52,8 +53,8 @@
             z-index: 2; /* Top Layer */
             /* Flat Black Outline */
             text-shadow: 
-                -2px -2px 0 #000, 2px -2px 0 #000, 
-                -2px  2px 0 #000, 2px  2px 0 #000;
+                -3px -3px 0 #000, 3px -3px 0 #000, 
+                -3px  3px 0 #000, 3px  3px 0 #000;
             white-space: nowrap;
             text-align: center;
             font-family: 'Pacifico', cursive; /* Handwritten for both */
@@ -61,21 +62,20 @@
 
         /* Portrait Sizes */
         #date-top { 
-            top: 15vh; 
+            top: 10vh; 
             font-size: 8vh; 
         }
         
         #date-bottom { 
-            bottom: 15vh; 
-            font-size: 12vh; 
-            letter-spacing: -2px;
+            bottom: 10vh; 
+            font-size: 15vh; 
         }
 
-        /* Landscape adjustments for better overlap */
+        /* Landscape adjustments for maximum size */
         @media (orientation: landscape) {
-            #time { font-size: 55vh; } /* Scale by height for width */
-            #date-top { top: 5vh; font-size: 12vh; } 
-            #date-bottom { bottom: 5vh; font-size: 18vh; }
+            #time { font-size: 85vh; letter-spacing: -15px; } 
+            #date-top { top: 2vh; font-size: 10vh; } 
+            #date-bottom { bottom: 2vh; font-size: 20vh; }
         }
     </style>
 </head>
