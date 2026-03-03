@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clock</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Nunito:wght@800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-    --red:#ff4a6e;
-    --yellow:#f4c267;
+    --red:#ff4768;
+    --yellow:#f1c06a;
     --outline:#000;
 }
 
@@ -25,61 +25,55 @@ body{
     width:100vw;
     height:100vh;
     overflow:hidden;
-    font-smooth:always;
     -webkit-font-smoothing:antialiased;
 }
 
-.container{
-    position:relative;
-    width:100vw;
-    height:100vh;
-}
-
-/* DATE (top floating) */
+/* DATE (small, high) */
 .date{
     position:absolute;
-    top:4vh;
-    left:50%;
-    transform:translateX(-50%);
+    top:6vh;
+    width:100%;
+    text-align:center;
     font-family:'Segoe UI','Inter',sans-serif;
-    font-weight:700;
-    font-size:5vh;
+    font-weight:600;
+    font-size:4.2vh;
     color:var(--yellow);
-    -webkit-text-stroke:0.35vh var(--outline);
+    -webkit-text-stroke:0.25vh var(--outline);
 }
 
-/* TIME (dominant center) */
+/* TIME (dominant, nearly edge-to-edge) */
 .time{
     position:absolute;
-    top:50%;
+    top:46%;
     left:50%;
     transform:translate(-50%,-50%);
     font-family:'Arial Rounded MT Bold','Nunito',sans-serif;
     font-weight:800;
-    font-size:28vw; /* fills landscape width */
-    line-height:1;
+    font-size:82vw;       /* Edge dominance */
+    line-height:0.85;
     color:var(--red);
-    -webkit-text-stroke:1.1vw var(--outline);
+    -webkit-text-stroke:1.6vw var(--outline);
+    letter-spacing:-0.02em;
 }
 
-/* DAY (bottom floating) */
+/* DAY (medium, below time) */
 .day{
     position:absolute;
-    bottom:8vh;
-    left:50%;
-    transform:translateX(-50%);
+    bottom:14vh;
+    width:100%;
+    text-align:center;
     font-family:'Segoe UI','Inter',sans-serif;
-    font-weight:700;
+    font-weight:600;
     font-size:7vh;
     color:var(--yellow);
-    -webkit-text-stroke:0.4vh var(--outline);
+    -webkit-text-stroke:0.35vh var(--outline);
 }
 
-/* Portrait tuning */
-@media (orientation: portrait){
+/* Portrait adjustments */
+@media (orientation:portrait){
     .time{
-        font-size:32vw;
-        -webkit-text-stroke:1.6vw var(--outline);
+        font-size:92vw;
+        -webkit-text-stroke:2vw var(--outline);
     }
 }
 </style>
@@ -87,18 +81,16 @@ body{
 
 <body>
 
-<div class="container">
-    <div class="date" id="date"></div>
-    <div class="time" id="time"></div>
-    <div class="day" id="day"></div>
-</div>
+<div class="date" id="date"></div>
+<div class="time" id="time"></div>
+<div class="day" id="day"></div>
 
 <script>
 function updateClock(){
     const now = new Date();
 
-    const dateOptions = { month: 'short', day: 'numeric', year: 'numeric' };
-    const dayOptions = { weekday: 'long' };
+    const dateOptions = { month:'short', day:'numeric', year:'numeric' };
+    const dayOptions = { weekday:'long' };
 
     document.getElementById("date").textContent =
         now.toLocaleDateString('en-US', dateOptions);
