@@ -39,7 +39,7 @@ function u(){
   var d=new Date(), h=d.getHours(), m=d.getMinutes(), n=d.getDate(), 
       mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], 
       dy=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  if(h<10) h="0"+h; if(m<10) m="0"+m;
+  if(h<10) h=""+h; if(m<10) m="0"+m;
   document.getElementById('time').innerHTML = h+":"+m;
   document.getElementById('date').innerHTML = dy[d.getDay()]+" "+n+" "+mo[d.getMonth()];
   setTimeout(u, 10000);
@@ -50,7 +50,7 @@ function u(){
   var d=new Date(), h=d.getHours(), m=d.getMinutes(), n=d.getDate(), 
       mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], 
       dy=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  if(h<10) h="0"+h; if(m<10) m="0"+m;
+  if(h<10) h=""+h; if(m<10) m="0"+m;
   document.getElementById('time').innerHTML = h+":"+m;
   document.getElementById('date').innerHTML = dy[d.getDay()]+" "+n+" "+mo[d.getMonth()];
   setTimeout(u, 10000);
